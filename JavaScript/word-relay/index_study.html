@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>끝말잇기</title>
+</head>
+
+<body>
+  <div>
+    <!--1이 없으면 첫 렌더링떄 숫자가 X-->
+    <span id="order">1</span>번째 참가자
+  </div>
+  <div>제시어: <span id="word"></span></div>
+  <input type="text">
+  <button>입력</button>
+
+  <script>
+    // prompt는 기본으로 문자형을 저장함.
+    // const number = prompt("타입 테스트");
+    // console.log(typeof number);
+    const number = parseInt(prompt('몇 명이 참가하나요?'), 10);
+    console.log('number:', number);
+    const $input = document.querySelector('input');
+    const $button = document.querySelector('button');
+    const $word = document.querySelector('#word');
+    const $order = document.querySelector('#order');
+
+    // 어떤 동작을 실행하고 난 뒤 연이어 동작/호출되는 함수 = 콜백
+    // .addEventListner("이벤트이름", 리스너함수);
+
+
+    let word; // 제시어를 담을 변수 생성, 따로 초기값 선언 X -> undefined
+    let newWord; // 참가자가 입력한 단어를 담을 변수 생성 
+
+    // 여러번 재사용되면 변수로 빼주는게 좋음
+    // input.value , span같은 다른 태그들은 textContent
+    // 태그.textContent는 태그 내부의 문자열을 가져옴.
+    // 태그.textContent = ''는 태그 내부의 문자열을 해당 값으로 설정함.
+    // const onClickBtn = function () {
+    //   // !undefined => true (제시어가 비어있는가?)
+    //   if (!word) {
+    //     word = newWord; // 입력한 단어가 제시어가 된다.
+    //     $word.textContent = word;
+    //     const order = parseInt($order.textContent); // 현재 순서
+    //     if (order + 1 > number) { // number => 참가자 수 , order === number도 가능
+    //       $order.textContent = 1; // textContent에 값을 넣으면 자동 형변환 됨!
+    //     } else {
+    //       $order.textContent = order + 1;
+    //     }
+    //     $input.value = "";
+    //     $input.focus(); // 커서 깜빡
+    //   } else {
+    //     // 제시어의 끝글자(마지막 자리)랑 입력한 글자의 첫 글자(첫번째 자리)가 같은지 체크가 필요!
+    //     if (word[word.length - 1] === newWord[0]) {
+    //       // 중복코드 수정 필요
+    //       word = newWord;
+    //       $word.textContent = word;
+
+    //       const order = parseInt($order.textContent); // 현재 순서
+
+    //       if (order + 1 > number) { // number => 참가자 수 , order === number도 가능
+    //         $order.textContent = 1; // textContent에 값을 넣으면 자동 형변환 됨!
+    //         console.log("order:", order);
+    //       } else {
+    //         $order.textContent = order + 1;
+    //         console.log("order:", order);
+    //       }
+    //       $input.value = "";
+    //       $input.focus(); // 커서 깜빡
+    //     } else {
+    //       alert("올바르지 않은 단어입니다.");
+    //       $input.value = "";
+    //       $input.focus(); // 커서 깜빡
+    //     }
+    //   }
+    // }
+
+    // 중복 코드 제거 작업 후
+    const onClickBtn = function () {
+      // !undefined => true (제시어가 비어있는가?)
+      if (!word || word[word.length - 1] === newWord[0]) {
+        word = newWord; // 입력한 단어가 제시어가 된다.
+        $word.textContent = word;
+        const order = parseInt($order.textContent); // 현재 순서
+        if (order + 1 > number) { // number => 참가자 수 , order === number도 가능
+          $order.textContent = 1; // textContent에 값을 넣으면 자동 형변환 됨!
+        } else {
+          $order.textContent = order + 1;
+        }
+        // $input.value = "";
+        // $input.focus(); // 커서 깜빡
+      } else {
+        alert("올바르지 않은 단어입니다.");
+      }
+      $input.value = "";
+      $input.focus(); // 커서 깜빡
+    }
+
+    // 키보드를 칠 때마다 newWord에 event.target.value가 저장됨
+    const onInput = (e) => {
+      newWord = e.target.value;
+      // console.log(newWord);
+    }
+
+
+    // input value check
+    $input.addEventListener('input', onInput);
+
+    // button click check
+    $button.addEventListener('click', onClickBtn);
+
+  </script>
+</body>
+
+</html>
