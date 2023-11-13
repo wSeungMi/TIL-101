@@ -36,6 +36,7 @@
       const $keyword = document.querySelector("#word");
       const $input = document.querySelector("input");
       const $order = document.querySelector("#order");
+      const $button = document.querySelector("button");
 
       // 참가할 인원 입력
       const number = parseInt(prompt("참가 인원수를 입력해주세요."), 10);
@@ -48,16 +49,12 @@
 
       const onClickBtn = function () {
         // 제시어가 비어있는가?
-        if (!keyword) {
+        if (!keyword || keyword[keyword.length - 1] === inputWord[0]) {
           // 비어있다면, 입력한 단어를 제시어 변수에 넣어준다.
           keyword = inputWord;
           console.log("제시어: ", keyword);
           // 저장한 제시어를 화면에 표시해준다.
           $keyword.textContent = keyword;
-          // 사용자가 입력하기 편하게 input 초기화 진행
-          $input.value = '';
-          // 커서가 다시 input에 가도록 설정
-          $input.focus();
 
           // 다음 사람에게 순서를 넘겨준다. => 현재 내 순서 파악 필요
           // $order.textContent가 string이므로 정확한 비교를 위해 참가인원수와 자료형을 일치시켜주자.
@@ -69,44 +66,29 @@
             $order.textContent = order + 1;
           }
 
+          // 🛠️  (중복코드 제거)
+
+          // 사용자가 입력하기 편하게 input 초기화 진행
+          $input.value = '';
+          // 커서가 다시 input에 가도록 설정
+          $input.focus();
 
         } else {
-          // 제시어가 비어있지 않다면, 다음 사람이 입력한 단어가 올바른지 판단 필요.
-          // 판단 기준 : 제시어의 끝단어와 새로 입력된 글자의 첫번째 단어가 같은가?
-          // 나는 keyword.slice(-1) === inputWord.slice(0, 1) 이렇게 했는데..
-          if (keyword[keyword.length - 1] === inputWord[0]) {
-            // 맞다면, 제시어가 변경되고 그 다음 사람에게 순서가 넘어간다.
-            keyword = inputWord;
-            $keyword.textContent = keyword;
-
-            // 다음 사람에게 순서를 넘겨준다. => 현재 내 순서 파악 필요
-            // $order.textContent가 string이므로 정확한 비교를 위해 참가인원수와 자료형을 일치시켜주자.
-            const order = parseInt($order.textContent);
-            // 현재 순서와 참가 인원수를 비교 => 참가 인원수보다 현재 순서가 커지면 다시 첫 순서로 변경 필요
-            if (order + 1 > number) {
-              $order.textContent = 1;
-            } else {
-              $order.textContent = order + 1;
-            }
-            $input.value = "";
-            $input.focus();
-
-          } else {
-            // 만약 입력한 단어가 틀리다면, 틀렸다고 표시한다.
-            alert(`${keyword.slice(-1)}로 시작하는 단어를 입력해주세요!`);
-            // 다시 작성할 수 있도록 input 창을 비워주고, 커서를 다시 적용해준다.
-            $input.value = "";
-            $input.focus();
-          }
+          // 만약 입력한 단어가 틀리다면, 틀렸다고 표시한다.
+          alert(`${keyword.slice(-1)}로 시작하는 단어를 입력해주세요!`);
+          // 다시 작성할 수 있도록 input 창을 비워주고, 커서를 다시 적용해준다.
+          $input.value = "";
+          $input.focus();
         }
       }
 
-      // 입력한 단어 저장
-      document.querySelector('input').addEventListener('input', inputValue);
 
-      // 단어 입력 후 입력버튼 클릭
-      document.querySelector('button').addEventListener('click', onClickBtn);
+      // 🛠️ 
+      $input.addEventListener('input', inputValue);
 
+
+      // 🛠️ 
+      $button.addEventListener('click', onClickBtn);
 
 
     </script>
