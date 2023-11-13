@@ -22,74 +22,70 @@
       <button>입력</button>
     </section>
 
-
-
     <script>
-      // 전역변수
-      // 입력한 단어 저장
-      let inputWord;
-
-      // 제시어 단어 저장
-      let keyword;
-
-      // node 선택
-      const $keyword = document.querySelector("#word");
-      const $input = document.querySelector("input");
-      const $order = document.querySelector("#order");
-      const $button = document.querySelector("button");
-
       // 참가할 인원 입력
       const number = parseInt(prompt("참가 인원수를 입력해주세요."), 10);
       console.log("참가 인원: ", number);
 
-      // 실행 함수
-      const inputValue = (e) => {
-        inputWord = e.target.value;
-      }
+      if (number) {
+        // node 선택
+        const $keyword = document.querySelector("#word");
+        const $input = document.querySelector("input");
+        const $order = document.querySelector("#order");
+        const $button = document.querySelector("button");
 
-      const onClickBtn = function () {
-        // 제시어가 비어있는가?
-        if (!keyword || keyword[keyword.length - 1] === inputWord[0]) {
-          // 비어있다면, 입력한 단어를 제시어 변수에 넣어준다.
-          keyword = inputWord;
-          console.log("제시어: ", keyword);
-          // 저장한 제시어를 화면에 표시해준다.
-          $keyword.textContent = keyword;
-
-          // 다음 사람에게 순서를 넘겨준다. => 현재 내 순서 파악 필요
-          // $order.textContent가 string이므로 정확한 비교를 위해 참가인원수와 자료형을 일치시켜주자.
-          const order = parseInt($order.textContent);
-          // 현재 순서와 참가 인원수를 비교 => 참가 인원수보다 현재 순서가 커지면 다시 첫 순서로 변경 필요
-          if (order + 1 > number) {
-            $order.textContent = 1;
-          } else {
-            $order.textContent = order + 1;
-          }
-
-          // 🛠️  (중복코드 제거)
-
-          // 사용자가 입력하기 편하게 input 초기화 진행
-          $input.value = '';
-          // 커서가 다시 input에 가도록 설정
-          $input.focus();
-
-        } else {
-          // 만약 입력한 단어가 틀리다면, 틀렸다고 표시한다.
-          alert(`${keyword.slice(-1)}로 시작하는 단어를 입력해주세요!`);
-          // 다시 작성할 수 있도록 input 창을 비워주고, 커서를 다시 적용해준다.
-          $input.value = "";
-          $input.focus();
+        // 전역변수
+        // 입력한 단어 저장
+        let inputWord;
+        // 제시어 단어 저장
+        let keyword;
+        // 실행 함수
+        const inputValue = (e) => {
+          inputWord = e.target.value;
         }
+
+        const onClickBtn = function () {
+          // 제시어가 비어있는가?  ||
+          // 혹은 입력한 단어가 올바르고, 3글자인가 &&
+          if (!keyword || (keyword[keyword.length - 1] === inputWord[0] && inputWord.length === 3)) {
+            // 비어있다면, 입력한 단어를 제시어 변수에 넣어준다.
+            keyword = inputWord;
+            console.log("제시어: ", keyword);
+            // 저장한 제시어를 화면에 표시해준다.
+            $keyword.textContent = keyword;
+
+            // 다음 사람에게 순서를 넘겨준다. => 현재 내 순서 파악 필요
+            // $order.textContent가 string이므로 정확한 비교를 위해 참가인원수와 자료형을 일치시켜주자.
+            const order = parseInt($order.textContent);
+            // 현재 순서와 참가 인원수를 비교 => 참가 인원수보다 현재 순서가 커지면 다시 첫 순서로 변경 필요
+            if (order + 1 > number) {
+              $order.textContent = 1;
+            } else {
+              $order.textContent = order + 1;
+            }
+
+            // 🛠️  (중복코드 제거)
+
+            // 사용자가 입력하기 편하게 input 초기화 진행
+            $input.value = '';
+            // 커서가 다시 input에 가도록 설정
+            $input.focus();
+
+          } else {
+            // 만약 입력한 단어가 틀리다면, 틀렸다고 표시한다.
+            alert(`3글자만 입력가능합니다.`);
+            // 다시 작성할 수 있도록 input 창을 비워주고, 커서를 다시 적용해준다.
+            $input.value = "";
+            $input.focus();
+          }
+        }
+
+        // 🛠️ 
+        $input.addEventListener('input', inputValue);
+
+        // 🛠️ 
+        $button.addEventListener('click', onClickBtn);
       }
-
-
-      // 🛠️ 
-      $input.addEventListener('input', inputValue);
-
-
-      // 🛠️ 
-      $button.addEventListener('click', onClickBtn);
-
 
     </script>
   </div>
