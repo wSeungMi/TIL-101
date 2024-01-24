@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To DO List</title>
-  <link rel="stylesheet" href="./css/reset.css">
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./style/reset.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <script type='module' src="./src/app.js"></script>
 </head>
 
 <body>
@@ -20,10 +21,7 @@
         <input type='text' placeholder='할일을 입력해주세요.' />
         <button type='button' class='post_btn'>등록하기</button>
       </div>
-      <ul class='list_wrap'>
-        <li>리스트1</li>
-        <li>리스트2</li>
-        <li>리스트3</li>
+      <ul id='todo_list' class='list_wrap'>
       </ul>
 
     </section>
