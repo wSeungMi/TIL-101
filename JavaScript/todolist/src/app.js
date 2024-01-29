@@ -35,8 +35,19 @@ const reloadTodoList = () => {
       '<i class="fa-solid fa-xmark fa-1g"></i>'
     );
 
+    // 선택한 삭제 리스트 번호 받아오기
+    $deleteBtn.addEventListener("click", () => deleteItem(list.id));
+
     $li.appendChild($deleteBtn);
   });
+};
+
+// 삭제 함수
+const deleteItem = (listId) => {
+  // id값이 일치하는 객체 제외하고 나머지 목록 받아오기
+  const updateList = todo.filter((list) => list.id !== listId);
+  setList(updateList);
+  reloadTodoList();
 };
 
 // input eventhandler 함수
