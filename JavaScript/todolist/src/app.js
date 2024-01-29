@@ -25,6 +25,17 @@ const reloadTodoList = () => {
     // 텍스트 노드를 $listItem 요소의 자식 노드로 추가
     $li.appendChild(liText);
     $listItem.appendChild($li);
+
+    // 삭제 버튼 추가
+    // <li> 요소 노드에 button 요소 노드 생성
+    const $deleteBtn = document.createElement("button");
+    $deleteBtn.classList.add("delete_btn");
+    $deleteBtn.insertAdjacentHTML(
+      "afterbegin",
+      '<i class="fa-solid fa-xmark fa-1g"></i>'
+    );
+
+    $li.appendChild($deleteBtn);
   });
 };
 
