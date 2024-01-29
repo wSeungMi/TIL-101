@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To DO List</title>
+    <link rel="stylesheet" href="./style/reset.css" />
+    <link rel="stylesheet" href="./style/style.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To DO List</title>
-  <link rel="stylesheet" href="./style/reset.css">
-  <link rel="stylesheet" href="./style/style.css">
-  <script type='module' src="./src/app.js"></script>
-</head>
+    <script
+      src="https://kit.fontawesome.com/97597fd0cf.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./src/app.js" defer></script>
+    <!-- Font Awesome -->
+  </head>
 
-<body>
-  <div class='wrap'>
-    <section class='todo_app'>
-      <!-- title -->
-      <h1 class='title'>To Do List</h1>
-      <!-- list -->
-      <h2 class='ir'>투두리스트 입력창</h2>
-      <div class='todo_input'>
-        <input type='text' placeholder='할일을 입력해주세요.' />
-        <button type='button' class='post_btn'>등록하기</button>
-      </div>
-      <ul id='todo_list' class='list_wrap'>
-      </ul>
-
-    </section>
-  </div>
-</body>
-
+  <body>
+    <div class="wrap">
+      <section class="todo_app">
+        <!-- title -->
+        <h1 class="title">To Do List</h1>
+        <!-- list -->
+        <h2 class="ir">투두리스트 입력창</h2>
+        <div class="todo_input">
+          <input type="text" placeholder="할일을 입력해주세요." />
+          <button type="button" class="post_btn">등록하기</button>
+        </div>
+        <ul id="todo_list" class="list_wrap"></ul>
+      </section>
+    </div>
+  </body>
 </html>
