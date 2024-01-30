@@ -62,6 +62,7 @@ const deleteItem = (listId) => {
 // input eventhandler 함수
 const onInput = (event) => {
   newTask = event.target.value;
+  console.log(newTask);
 
   // enter key를 눌렀을 때도 handlerAddTodo() 실행하기
   if (event.key === "Enter") {
@@ -76,7 +77,10 @@ const setList = (newTodo) => {
 
 // onclick eventhandler 함수
 const handlerAddTodo = () => {
-  if (!newTask) alert("할일을 입력해주세요🙌!");
+  if (!newTask) {
+    alert("할일을 입력해주세요🙌!");
+    return;
+  }
 
   // 새로운 투두 추가
   const newTodo = [...todo, { id: nextId, task: newTask, done: false }];
