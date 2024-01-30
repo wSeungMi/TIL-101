@@ -26,6 +26,14 @@ const reloadTodoList = () => {
     $li.appendChild(liText);
     $listItem.appendChild($li);
 
+    // 수정 버튼 추가
+    const $editBtn = document.createElement("button");
+    $editBtn.classList.add("edit_btn");
+    $editBtn.insertAdjacentHTML(
+      "afterbegin",
+      '<i class="fa-solid fa-pen-to-square"></i>'
+    );
+
     // 삭제 버튼 추가
     // <li> 요소 노드에 button 요소 노드 생성
     const $deleteBtn = document.createElement("button");
@@ -47,6 +55,7 @@ const reloadTodoList = () => {
       }
     });
 
+    $li.appendChild($editBtn);
     $li.appendChild($deleteBtn);
   });
 };
@@ -62,10 +71,10 @@ const deleteItem = (listId) => {
 // input eventhandler 함수
 const onInput = (event) => {
   newTask = event.target.value;
-  console.log(newTask);
 
   // enter key를 눌렀을 때도 handlerAddTodo() 실행하기
   if (event.key === "Enter") {
+    if (event.isComposing) return;
     handlerAddTodo(newTask);
   }
 };
@@ -87,12 +96,13 @@ const handlerAddTodo = () => {
   setList(newTodo);
   nextId++; // 객체 id 번호 증가
   $input.value = ""; // input value 초기화
+  newTask = ""; // newTask value 초기화
   reloadTodoList();
 };
 
 // 할일 추가
 // 1. 사용자 입력을 받아 변수에 저장하기
-$input.addEventListener("keypress", onInput);
+$input.addEventListener("keydown", onInput);
 
 // 2. 등록하기 버튼을 누르면 todo 객체에 값 넣어주기
 $button.addEventListener("click", handlerAddTodo);
