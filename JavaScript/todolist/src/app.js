@@ -35,8 +35,17 @@ const reloadTodoList = () => {
       '<i class="fa-solid fa-xmark fa-1g"></i>'
     );
 
-    // 선택한 삭제 리스트 번호 받아오기
-    $deleteBtn.addEventListener("click", () => deleteItem(list.id));
+    // 사용자가 삭제하려고 선택한 리스트 번호 받아오기
+    $deleteBtn.addEventListener("click", () => {
+      // 삭제 전에 한번 더 확인하기
+      const isConfirmed = window.confirm("정말 삭제하시겠습니까?");
+
+      if (isConfirmed) {
+        deleteItem(list.id);
+      } else {
+        return;
+      }
+    });
 
     $li.appendChild($deleteBtn);
   });
@@ -44,7 +53,7 @@ const reloadTodoList = () => {
 
 // 삭제 함수
 const deleteItem = (listId) => {
-  // id값이 일치하는 객체 제외하고 나머지 목록 받아오기
+  // id값이 일치하는 객체를 제외하고 나머지 목록 받아오기
   const updateList = todo.filter((list) => list.id !== listId);
   setList(updateList);
   reloadTodoList();
@@ -53,6 +62,11 @@ const deleteItem = (listId) => {
 // input eventhandler 함수
 const onInput = (event) => {
   newTask = event.target.value;
+
+  // enter key를 눌렀을 때도 handlerAddTodo() 실행하기
+  if (event.key === "Enter") {
+    handlerAddTodo(newTask);
+  }
 };
 
 // 기존 배열에 새로운 데이터를 복사하는 함수
@@ -74,7 +88,7 @@ const handlerAddTodo = () => {
 
 // 할일 추가
 // 1. 사용자 입력을 받아 변수에 저장하기
-$input.addEventListener("input", onInput);
+$input.addEventListener("keypress", onInput);
 
 // 2. 등록하기 버튼을 누르면 todo 객체에 값 넣어주기
 $button.addEventListener("click", handlerAddTodo);
