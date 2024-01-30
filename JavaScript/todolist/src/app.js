@@ -26,24 +26,20 @@ const reloadTodoList = () => {
     $li.appendChild(liText);
     $listItem.appendChild($li);
 
-    // 수정 버튼 추가
-    const $editBtn = document.createElement("button");
-    $editBtn.classList.add("edit_btn");
-    $editBtn.insertAdjacentHTML(
-      "afterbegin",
-      '<i class="fa-solid fa-pen-to-square"></i>'
-    );
+    // 버튼 wrapper 생성
+    const $buttonWrapper = document.createElement("div");
+    $buttonWrapper.classList.add("button_wrapper");
 
     // 삭제 버튼 추가
     // <li> 요소 노드에 button 요소 노드 생성
     const $deleteBtn = document.createElement("button");
     $deleteBtn.classList.add("delete_btn");
     $deleteBtn.insertAdjacentHTML(
-      "afterbegin",
+      "beforeend",
       '<i class="fa-solid fa-xmark fa-1g"></i>'
     );
 
-    // 사용자가 삭제하려고 선택한 리스트 번호 받아오기
+    // 사용자가 삭제하려고 선택한 리스트 번호 받아와서 함수 실행
     $deleteBtn.addEventListener("click", () => {
       // 삭제 전에 한번 더 확인하기
       const isConfirmed = window.confirm("정말 삭제하시겠습니까?");
@@ -55,9 +51,61 @@ const reloadTodoList = () => {
       }
     });
 
-    $li.appendChild($editBtn);
-    $li.appendChild($deleteBtn);
+    // 수정 버튼 추가
+    const $editBtn = document.createElement("button");
+    $editBtn.classList.add("edit_btn");
+    $editBtn.insertAdjacentHTML(
+      "afterbegin",
+      '<i class="fa-solid fa-pen-to-square"></i>'
+    );
+
+    // 사용자가 수정하려고 선택한 리스트 번호 받아와서 함수 실행
+    $editBtn.addEventListener("click", (e) => {
+      editItem(e, list.id);
+    });
+
+    $buttonWrapper.appendChild($editBtn);
+    $buttonWrapper.appendChild($deleteBtn);
+    $li.appendChild($buttonWrapper);
   });
+};
+
+// 수정 함수
+const editItem = (e, listId) => {
+  // 수정하기 버튼을 클릭한 li 찾기
+  if (e.target.classList.contains("fa-pen-to-square")) {
+    // 버튼과 가장 인접한 li 요소 찾기
+    const $selectLi = e.target.closest("li");
+
+    if ($selectLi) {
+      // 현재 li에 있는 텍스트 가져오기
+      const liTextContent = $selectLi.textContent;
+      // 기존 텍스트 지워주기
+      $selectLi.textContent = "";
+
+      // 텍스트 자리에 input 요소 노드 추가
+      const $newInput = document.createElement("input");
+      // 새로 생성한 input에 value값으로 기존 텍스트값 넣어주기
+      $newInput.setAttribute("value", liTextContent);
+      $newInput.classList.add("edit_input");
+
+      // 버튼 wrapper 생성
+      const $buttonWrapper = document.createElement("div");
+      $buttonWrapper.classList.add("button_wrapper");
+
+      // 입력 취소 버튼 추가
+      const $cancleBtn = document.createElement("button");
+      $cancleBtn.classList.add("cancle_btn");
+      $cancleBtn.insertAdjacentHTML(
+        "afterbegin",
+        '<i class="fa-solid fa-xmark fa-1g"></i>'
+      );
+
+      $buttonWrapper.appendChild($cancleBtn);
+      $selectLi.appendChild($newInput);
+      $selectLi.appendChild($buttonWrapper);
+    }
+  }
 };
 
 // 삭제 함수

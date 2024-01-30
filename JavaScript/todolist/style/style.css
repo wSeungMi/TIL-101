@@ -58,7 +58,7 @@
 }
 
 .list_wrap li {
-  padding: 4px;
+  padding: 6px;
   font-size: var(--font-size);
   user-select: none;
   display: flex;
@@ -68,4 +68,34 @@
 
 .list_wrap li > btn {
   cursor: pointer;
+}
+
+.button_wrapper {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.button_wrapper .delete_btn,
+.edit_btn,
+.cancle_btn {
+  padding-left: 16px;
+}
+
+.button_wrapper .delete_btn,
+.cancle_btn {
+  font-size: 18px;
+}
+
+.button_wrapper .delete_btn:hover,
+.edit_btn:hover,
+.cancle_btn:hover {
+  color: gray;
+}
+
+.edit_input {
+  border-bottom: 1px solid gray;
+  padding: 6px 6px 6px 0;
+  font-size: var(--font-size);
+  width: 100%;
 }
