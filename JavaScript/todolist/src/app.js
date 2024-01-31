@@ -76,6 +76,9 @@ const editItem = (e, listId) => {
   if (e.target.classList.contains("fa-pen-to-square")) {
     // 버튼과 가장 인접한 li 요소 찾기
     const $selectLi = e.target.closest("li");
+    // 텍스트 자리에 input 요소 노드 추가
+    const $newInput = document.createElement("input");
+    $newInput.classList.add("edit_input");
 
     if ($selectLi) {
       // 현재 li에 있는 텍스트 가져오기
@@ -83,11 +86,8 @@ const editItem = (e, listId) => {
       // 기존 텍스트 지워주기
       $selectLi.textContent = "";
 
-      // 텍스트 자리에 input 요소 노드 추가
-      const $newInput = document.createElement("input");
       // 새로 생성한 input에 value값으로 기존 텍스트값 넣어주기
       $newInput.setAttribute("value", liTextContent);
-      $newInput.classList.add("edit_input");
 
       // 버튼 wrapper 생성
       const $buttonWrapper = document.createElement("div");
@@ -101,6 +101,32 @@ const editItem = (e, listId) => {
         '<i class="fa-solid fa-xmark fa-1g"></i>'
       );
 
+      $cancleBtn.addEventListener("click", reloadTodoList);
+
+      // 수정 완료 버튼 추가
+      const $editDoneBtn = document.createElement("button");
+      $editDoneBtn.classList.add("edit_done_btn");
+      $editDoneBtn.insertAdjacentHTML(
+        "afterbegin",
+        '<i class="fa-solid fa-check"></i>'
+      );
+
+      // 수정 완료 버튼을 클릭하면, id값이 일치하는 데이터에 수정된 데이터를 다시 넣어준다.
+      $editDoneBtn.addEventListener("click", () => {
+        if (listId && $newInput.value !== "") {
+          // 기존 todo 목록을 가져와서 수정된 데이터로 업데이트 된 새 배열을 반환한다.
+          const newEditTodo = todo.map((list) =>
+            list.id === listId ? { ...list, task: $newInput.value } : list
+          );
+          setList(newEditTodo);
+          reloadTodoList();
+        } else {
+          alert("할일을 입력해주세요🙌!");
+          return;
+        }
+      });
+
+      $buttonWrapper.appendChild($editDoneBtn);
       $buttonWrapper.appendChild($cancleBtn);
       $selectLi.appendChild($newInput);
       $selectLi.appendChild($buttonWrapper);

@@ -78,18 +78,21 @@
 
 .button_wrapper .delete_btn,
 .edit_btn,
-.cancle_btn {
+.cancle_btn,
+.edit_done_btn {
   padding-left: 16px;
 }
 
 .button_wrapper .delete_btn,
-.cancle_btn {
+.cancle_btn,
+.edit_done_btn {
   font-size: 18px;
 }
 
 .button_wrapper .delete_btn:hover,
 .edit_btn:hover,
-.cancle_btn:hover {
+.cancle_btn:hover,
+.edit_done_btn:hover {
   color: gray;
 }
 
