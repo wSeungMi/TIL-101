@@ -20,11 +20,37 @@ const reloadTodoList = () => {
     $li.setAttribute("key", list.id);
     // <li>에 class 추가
     $li.classList.add("todo_item");
+
+    // 레이아웃을 위한 <span> 요소, wrapper 노드 생성
+    const $todoWrapper = document.createElement("div");
+    $todoWrapper.classList.add("todo_wrapper");
+    const $span = document.createElement("span");
+    $span.classList.add("text_wrapper");
+
     // 텍스트 노드 생성
     const liText = document.createTextNode(list.task);
-    // 텍스트 노드를 $listItem 요소의 자식 노드로 추가
-    $li.appendChild(liText);
+
+    // 체크박스 생성
+    const $checkbox = document.createElement("div");
+    $checkbox.classList.add("checkbox_btn");
+    $li.appendChild($checkbox);
+
+    // 텍스트 노드를 $span 요소의 자식 노드로 추가
+    $span.appendChild(liText);
+    $todoWrapper.appendChild($checkbox);
+    $todoWrapper.appendChild($span);
+
+    // $buttonWrapper 요소를 $listItem 요소의 자식 노드로 추가
+    $li.appendChild($todoWrapper);
     $listItem.appendChild($li);
+
+    // 할일 완료
+    $checkbox.addEventListener("click", () => completedTodo(list.id));
+
+    if (list.done) {
+      $checkbox.classList.add("checked");
+      $span.classList.add("checked");
+    }
 
     // 버튼 wrapper 생성
     const $buttonWrapper = document.createElement("div");
@@ -68,6 +94,15 @@ const reloadTodoList = () => {
     $buttonWrapper.appendChild($deleteBtn);
     $li.appendChild($buttonWrapper);
   });
+};
+
+// 할일 완료 함수
+const completedTodo = (listId) => {
+  const isCompleted = todo.map((list) =>
+    list.id === listId ? { ...list, done: !list.done } : list
+  );
+  setList(isCompleted);
+  reloadTodoList();
 };
 
 // 수정 함수

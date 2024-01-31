@@ -102,3 +102,41 @@
   font-size: var(--font-size);
   width: 100%;
 }
+
+.checkbox_btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+  background-image: url("../../assets/checkbox_off.svg");
+  background-size: cover;
+}
+
+.checkbox_btn.checked::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  color: #fff;
+  background-image: url("../../assets/checkbox_on.svg");
+  background-size: cover;
+}
+
+.todo_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.text_wrapper {
+  margin-left: 30px;
+}
+
+.text_wrapper.checked {
+  text-decoration: line-through;
+  color: #a9a9a9;
+}
