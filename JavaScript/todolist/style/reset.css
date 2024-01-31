@@ -57,6 +57,7 @@ a {
 input {
   border: none;
   outline: none;
+  font-family: "LINESeedKR-Rg";
 }
 
 .ir {
