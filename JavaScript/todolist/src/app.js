@@ -2,15 +2,25 @@
 let todo = [];
 let $input = document.querySelector("input");
 let $button = document.querySelector("button");
+// 2. <ul></ul> 태그 안에 <li>todo data</li>를 추가하기 위해 <ul> 요소 선택
+let $listItem = document.getElementById("todo_list");
 let nextId = 1; // id값
 let newTask = ""; // 새로운 할일
 
-// 투두리스트 조회
-// 2. <ul></ul> 태그 안에 <li>todo data</li>를 추가하기 위해 <ul> 요소 선택
-const $listItem = document.getElementById("todo_list");
+// localStorage에서 데이터 불러오기
+let storedTodos = JSON.parse(localStorage.getItem("todo-list"));
 
+if (storedTodos) {
+  // 'todo' 배열에 불러온 데이터 할당
+  todo = storedTodos;
+}
+
+// 리스트 렌더링 함수 호출
+reloadTodoList();
+
+// 투두리스트 조회
 // 3. 받아온 데이터 순회해서 <li> 요소 추가하기
-const reloadTodoList = () => {
+function reloadTodoList() {
   $listItem.innerHTML = "";
 
   // 리스트 렌더링
@@ -94,7 +104,7 @@ const reloadTodoList = () => {
     $buttonWrapper.appendChild($deleteBtn);
     $li.appendChild($buttonWrapper);
   });
-};
+}
 
 // 할일 완료 함수
 const completedTodo = (listId) => {
@@ -191,6 +201,14 @@ const onInput = (event) => {
 // 기존 배열에 새로운 데이터를 복사하는 함수
 const setList = (newTodo) => {
   todo = newTodo;
+
+  // 이때, localStorage에도 데이터 함께 저장해주기
+  // 값이 없다면 데이터 삭제
+  if (!todo.length) {
+    localStorage.removeItem("todo-list");
+  } else {
+    localStorage.setItem("todo-list", JSON.stringify(todo));
+  }
 };
 
 // onclick eventhandler 함수
