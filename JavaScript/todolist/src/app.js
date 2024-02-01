@@ -218,8 +218,10 @@ const handlerAddTodo = () => {
     return;
   }
 
+  // 새로고침시 id값이 1부터 다시 생성되는 이슈 방지
+  const currentId = todo.length > 0 ? todo[todo.length - 1].id : 0;
+  const newTodo = [...todo, { id: currentId + 1, task: newTask, done: false }];
   // 새로운 투두 추가
-  const newTodo = [...todo, { id: nextId, task: newTask, done: false }];
   setList(newTodo);
   nextId++; // 객체 id 번호 증가
   $input.value = ""; // input value 초기화
