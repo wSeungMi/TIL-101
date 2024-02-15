@@ -11,3 +11,34 @@ const $delBtn = document.querySelector(".del");
 const $numsBtn = document.querySelectorAll(".nums");
 const displayPrev = document.querySelector(".previous-operand");
 const displayNext = document.querySelector(".current-operand");
+
+$button.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    const currentValue = e.target.textContent;
+    const currentClassName = e.target.className;
+
+    // 연산자가 비어있고, className이 nums면
+    if (!operator && currentClassName === "nums") {
+      displayPrev.textContent += currentValue;
+      prevNum = Number(prevNum + currentValue);
+    } else if (prevNum && !operator && currentClassName === "operator") {
+      displayPrev.textContent += currentValue;
+      operator = currentValue;
+    } else if (operator && currentClassName === "nums") {
+      displayNext.textContent += currentValue;
+      nextNum = Number(nextNum + currentValue);
+    } else if (nextNum && currentClassName === "result") {
+      displayPrev.textContent = "";
+      displayNext.textContent = result;
+    } else if (currentClassName === "reset") {
+      displayPrev.textContent = "";
+      displayNext.textContent = "";
+      prevNum = 0;
+      nextNum = 0;
+      operator = "";
+      result = 0;
+    } else {
+      alert("잘못된 입력입니다.");
+    }
+  });
+});
