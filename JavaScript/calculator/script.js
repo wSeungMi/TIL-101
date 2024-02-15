@@ -28,6 +28,7 @@ $button.forEach((item) => {
       displayNext.textContent += currentValue;
       nextNum = Number(nextNum + currentValue);
     } else if (nextNum && currentClassName === "result") {
+      calculate(prevNum, operator, nextNum);
       displayPrev.textContent = "";
       displayNext.textContent = result;
     } else if (currentClassName === "reset") {
@@ -42,3 +43,22 @@ $button.forEach((item) => {
     }
   });
 });
+
+const calculate = function (num1, operator, num2) {
+  switch (operator) {
+    case "+":
+      result = num1 + num2;
+      break;
+    case "−":
+      result = num1 - num2;
+      break;
+    case "×":
+      result = num1 * num2;
+      break;
+    case "÷":
+      result = num1 / num2;
+      break;
+    default:
+      break;
+  }
+};
