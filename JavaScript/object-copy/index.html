@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS 객체 연습</title>
+  </head>
+  <body>
+    <div>
+      <h1>원시 타입의 값</h1>
+      <p id="immutable" style="margin-bottom: 20px"></p>
+      <p id="copy" style="margin-bottom: 100px"></p>
+    </div>
+
+    <div>
+      <h1>객체 타입의 값</h1>
+      <p id="mutable" style="margin-bottom: 20px"></p>
+      <p id="copy"></p>
+    </div>
+
+    <script>
+      let immutableValue = 80;
+      let copy = immutableValue;
+      let mutable = { x: 3, arr: [3, 4, 5] };
+      mutable.arr = "str";
+
+      // immutableValue = 100;
+
+      console.log("check: ", immutableValue === copy);
+      const immutable = document.querySelector("#immutable");
+      const immutable2 = document.querySelector("#copy");
+      immutable.textContent = `immutableValue: ${immutableValue}`;
+      immutable2.textContent = `copy: ${copy}`;
+
+      const mutableValue = document.querySelector("#mutable");
+      mutableValue.textContent = mutable.arr;
+    </script>
+  </body>
+</html>
