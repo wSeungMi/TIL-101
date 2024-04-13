@@ -1,0 +1,16 @@
+{
+  "name": "json-practice",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "json-server --watch db.json"
+  },
+  "devDependencies": {
+    "json-server": "^1.0.0-alpha.23",
+    "vite": "^5.2.0"
+  }
+}
